@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 
 class ProfileRegistrationAPIView(generics.CreateAPIView):
@@ -33,10 +34,12 @@ class ProfileRegistrationAPIView(generics.CreateAPIView):
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.IsAdminUser,)
 
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
