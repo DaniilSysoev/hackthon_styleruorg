@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('title', 'description', 'date', 'image')
+        fields = ('title', 'description', 'date')
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -18,5 +18,5 @@ class BookingSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password')
+        fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}}

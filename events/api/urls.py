@@ -4,7 +4,7 @@ from .views import EventViewSet, BookingViewSet, ProfileRegistrationAPIView
 
 
 router = routers.SimpleRouter()
-router.register('event', EventViewSet, basename='event')
+router.register('events', EventViewSet, basename='events')
 router.register('booking', BookingViewSet, basename='booking')
 
 
