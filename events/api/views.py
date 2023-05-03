@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
 from .models import Event, Booking
-from .serializers import EventSerializer, BookingSerializer, UserSerializer
+from .serializers import EventSerializer, BookingSerializer, UserRegistrationSerializer, UserLoginSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
@@ -10,7 +10,7 @@ from .permissions import IsStuffOrReadOnly
 
 class ProfileRegistrationAPIView(generics.CreateAPIView):
     queryset = get_user_model().objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserRegistrationSerializer
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
@@ -24,14 +24,13 @@ class ProfileRegistrationAPIView(generics.CreateAPIView):
 
 class ProfileLoginAPIView(generics.CreateAPIView):
     queryset = get_user_model().objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserLoginSerializer
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, *args, **kwargs):
         data = request.data
-        print(data)
-        username = data.get('username', None)
         password = data.get('password', None)
+        username = data.get('username', None)
         user = self.get_queryset().get(username=username, password=password)
         if user:
             token = Token.objects.get(user=user)

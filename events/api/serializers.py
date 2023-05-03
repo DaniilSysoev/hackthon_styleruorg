@@ -15,8 +15,14 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = ('event_id', 'user_id')
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password', 'email',  'first_name', 'last_name', 'is_staff')
+        fields = ('username', 'password', 'email', 'telegram',  'first_name', 'last_name', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}
+
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password')
